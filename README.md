@@ -11,4 +11,19 @@
 ```bash
 pip install pyyaml
 pip install requests
+python main.py
 ```
+
+# 结果
+
+产生的结果保存在以下文件中:
+```
+result/U*****.txt
+```
+
+（默认关闭未完成的HTML的结果生成）
+
+# TODO
+
+1. 完善HTML的结果生成
+2. 添加批量分析的功能，同时避免重复
