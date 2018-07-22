@@ -1,0 +1,14 @@
+UserID: {|UserID|}
+UserName: {|UserName|}
+
+通过数: {|Accept|}
+提交数: {|Submit|}
+
+Result:
+    入门难度 {|入门难度|}
+    普及- {|普及-|}
+    普及/提高- {|普及/提高-|}
+    普及+/提高 {|普及+/提高|}
+    提高+/省选- {|提高+/省选-|}
+    省选/NOI- {|省选/NOI-|}
+    NOI/NOI+/CTSC {|NOI/NOI+/CTSC|}
