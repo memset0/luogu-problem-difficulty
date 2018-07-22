@@ -12,4 +12,4 @@ limitCount: -1
 # 是否已经统计过 hasStatisticsed
 # >> 如果已经统计过（已经有生成 log/ans.txt 就可以设置为 true）
 #    除非你想要重新统计一遍
-hasStatisticsed: false
+hasStatisticsed: true

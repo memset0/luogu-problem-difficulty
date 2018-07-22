@@ -67,8 +67,8 @@ def statistics(prob):
 
             writeFile('log/prob.html', 'wb+', base)
 
-            dify = re.findall(r'<span class="am-badge am-radius lg-bg-[\S\s]*?">[\s\S]*?</span>', html)[0]
-            dify = re.sub(r'<span class="am-badge am-radius lg-bg-[\S\s]*?">', '', dify)
+            dify = re.findall(r'<li><strong>难度</strong>[\s\S]*?</span>', html)[0]
+            dify = re.sub(r'<li[\s\S]*">', '', dify)
             dify = dify.replace('</span>', '')
 
             ans.append(dify)
@@ -82,6 +82,12 @@ def statistics(prob):
 
     return ans
 
+# 统计输出结果
+
+def result(ans):
+    pass
+
+# 主程序部分
 
 if config['hasStatisticsed'] == False:
     ans = statistics(listAC())
@@ -91,5 +97,6 @@ if config['hasStatisticsed'] == False:
 else:
     ans = open('log/ans.txt', 'r+').read().split(', ')
 
-print(config['hasStatisticsed'])
+result(ans)
+
 print('Finish')
