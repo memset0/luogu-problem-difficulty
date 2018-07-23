@@ -2,19 +2,23 @@ import re
 import yaml
 import requests
 
-# ========== 读取配置文件 & 定义全局变量 ==========
+# ========== 初始化程序 ==========
 
-request = requests.Session()
-config  = yaml.load(open('config.yml', 'r+', encoding = 'utf8'))
-debug   = config['debug']
-try:
-    UserID = config['UserID'].split(', ')
-except:
-    UserID = [config['UserID']]
-try:
-    prob = yaml.load(open('result/problem.yml', 'r+', encoding = 'utf8'))
-except:
+def init():
+    global request, config, debug, UserID, prob
+    request = requests.Session()
+    config  = yaml.load(open('config.yml', 'r+', encoding = 'utf8'))
+    debug   = config['debug']
     prob = {}
+    try:
+        UserID = config['UserID'].split(', ')
+    except:
+        UserID = [config['UserID']]
+    if config['hasStatisticsed']:
+        try:
+            prob = yaml.load(open('result/problem.yml', 'r+', encoding = 'utf8'))
+        except:
+            pass
 
 # ========== 定义全局函数 ==========
 
@@ -74,6 +78,9 @@ def getProblem(probID):
             prob[probID] = dify 
             return dify
 
+    else:
+        return prob[probID]
+
 # ========== 获取个人信息页面 ==========
 
 def getUser(UserID):
@@ -83,11 +90,11 @@ def getUser(UserID):
         req  = request.get(UserWeb)
         html = req.text
         base = req.content
-        writeFile('log/user.html', 'wb+', base)
+        writeFile('log/U{}.html'.format(UserID), 'wb+', base)
         return html
 
     else:
-        file = open('log/user.html', 'r+', encoding='utf8')
+        file = open('log/U{}.html'.format(UserID), 'r+', encoding='utf8')
         content = file.read()
         file.close()
         return content
@@ -115,16 +122,12 @@ def listAC(UserID):
 
 def statistics(prob):
 
-    if config['hasStatisticsed'] == False:
-        ans = []
-        for probID in prob:
-            ans.append(getProblem(probID))
+    ans = []
+    for probID in prob:
+        ans.append(getProblem(probID))
 
-        out = ", ".join(str(it) for it in ans)
-        writeFile('log/ans.txt', 'w+', out)
-
-    else:
-        ans = open('log/ans.txt', 'r+').read().split(', ')
+    out = ", ".join(str(it) for it in ans)
+    writeFile('log/ans.txt', 'w+', out)
 
     return ans
 
@@ -137,7 +140,7 @@ def modify(set, content):
             # print('Modify "{}"'.format(it[2:-2]))
             result = result.replace(it, set[it[2:-2]])
         except:
-            pass
+            result = result.replace(it, '0')
     return result
 
 def modifyFile(oldPath, newPath, set):
@@ -173,16 +176,23 @@ def result(UserID, ans):
 
     print('Finish listing, now this it the information of U{}'.format(UserID), set)
 
-    modifyFile('theme/count.txt', 'result/U{}.txt'.format(UserID), set)
+    modifyFile('theme/count.txt', 'result/U{} - {}.txt'.format(UserID, set['UserName']), set)
 
 # ========== 结束程序 ==========
 
 def finish():
     global prob
-    writeFile('result/problem.html', 'w+', yaml.dump(prob))
+    content = ''
+    for first, second in prob.items():
+        content += '{}: {}\n'.format(first, second)
+    file = open('result/problem.yml', 'w+', encoding='utf8')
+    file.write(content)
+    file.close()
     print('Finish.')
 
 # ========== 主程序部分 ==========
+
+init()
 
 for it in UserID:
     result(it, statistics(listAC(int(it))))
