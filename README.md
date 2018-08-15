@@ -10,9 +10,10 @@
 
 进入命令行（如果你已经正确安装了`Python3`且配置了路径的话），输入
 
-```bash
+```plain
 pip install pyyaml
 pip install requests
+cp config.sample.yml config.yml
 python main.py
 ```
 
@@ -33,3 +34,7 @@ result/U*****.txt
 
 1. 完善HTML的结果生成
 2. 添加批量分析的功能，同时避免重复
+
+# License
+
+MIT License
