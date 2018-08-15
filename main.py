@@ -1,10 +1,13 @@
 import re
+import os
 import yaml
 import requests
 
 # ========== 初始化程序 ==========
 
 def init():
+    os.system("mkdir log")
+    os.system("mkdir result")
     global request, config, debug, UserID, prob
     request = requests.Session()
     config  = yaml.load(open('config.yml', 'r+', encoding = 'utf8'))
@@ -198,4 +201,3 @@ for it in UserID:
     result(it, statistics(listAC(int(it))))
 
 finish()
-
