@@ -1,6 +1,7 @@
 log/*
 result/*
 config.yml
+new_theme/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
