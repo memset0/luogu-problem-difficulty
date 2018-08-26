@@ -10,6 +10,8 @@ def init():
     os.system("mkdir result")
     global request, config, debug, UserID, prob
     request = requests.Session()
+    request.headers.update({'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36'})
+    print(request.headers)
     config  = yaml.load(open('config.yml', 'r+', encoding = 'utf8'))
     debug   = config['debug']
     prob = {}

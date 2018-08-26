@@ -4,7 +4,7 @@
 # 用户id UserID
 # >> 默认是我（memset0）的用户ID
 #    多个账号请用逗号分隔
-UserID: 51815
+UserID: 53495
 
 # 是否已经统计过 hasStatisticsed
 # >> 如果已经统计过就可以设置为true以加快速度
