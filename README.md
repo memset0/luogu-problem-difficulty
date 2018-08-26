@@ -2,20 +2,28 @@
 
 统计（通过）的洛谷题目的难度。
 
+**如果出现不能使用的情况， 请更新到最新版本。**
+
+**请在合理范围内爬取数据，出现的一切后果概不负责。**
+
 # 安装
 
-使用了一些第三方库，你需要先安装他们。
+首先您需要点击右上方的 Download 按钮下载源码并解压。
 
-你可以下`config.yml`文件中修改配置，具体方法其中有中文注释。
+打开解压出的文件夹，进入`main.py`所在的文件夹。
 
-进入命令行（如果你已经正确安装了`Python3`且配置了路径的话），输入
+在命令行中输入以下命令安装第三方库并运行爬虫（以 cmd 为例）。
 
 ```plain
 pip install pyyaml
 pip install requests
-cp config.sample.yml config.yml
+copy config.sample.yml config.yml
 python main.py
 ```
+
+你可以在`config.yml`文件中修改配置，具体方法其中有中文注释。
+
+从第二次使用开始您可以直接双击运行 `main.py` 即可。
 
 # 结果
 
