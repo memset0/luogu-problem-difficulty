@@ -1,0 +1,25 @@
+用户ID: {|UserID|}
+
+用户名: {|UserName|}
+
+![](https://img.shields.io/badge/{|Accept|}-通过数-green.svg)
+
+![](https://img.shields.io/badge/{|Submit|}-提交数-blue.svg)
+
+![](https://img.shields.io/badge/0.{|ACpercent%|}-通过率-yellow.svg)
+
+难度统计:
+
+![](https://img.shields.io/badge/{|入门难度|}-入门-red.svg)
+	
+![](https://img.shields.io/badge/{|普及-|}-普及---orange.svg)
+	
+![](https://img.shields.io/badge/{|普及/提高-|}-普及/提高---yellow.svg)
+	
+![](https://img.shields.io/badge/{|普及+/提高|}-普及+/提高---blue.svg)
+	
+![](https://img.shields.io/badge/{|提高+/省选-|}-提高+/省选---blue.svg)
+	
+![](https://img.shields.io/badge/{|省选+/NOI-|}-省选+/NOI---purple.svg)
+	
+![](https://img.shields.io/badge/{|NOI/NOI+/CTSC|}-NOI/NOI+/CTSC-navy.svg)
