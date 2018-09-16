@@ -21,7 +21,7 @@
 #include <windows.h>
 #include <conio.h>
 
-int UserID = 122405; // 可以不填或设 0
+int UserID = 53495; // 可以不填或设 0
 
 #ifdef URLDownloadToFile // 避免 URLDownloadToFile 变量重复 
 #undef URLDownloadToFile
@@ -157,14 +157,14 @@ void SaveResult() {
 			fout << tmp[i];
 		}
 	}
-	fout << "\n  ┌──────────┬──────────────┐\n"
-			"  | 题目编号 |   题目编号   |\n"
-			"  ├──────────┼──────────────┤\n";
+	fout << "\n  ┌──────────┬────────────────┐\n"
+			"  | 题目编号 |    题目编号    |\n"
+			"  ├──────────┼────────────────┤\n";
 	for (std::map < string, int > ::iterator it = ProblemDifficulty.begin(); it != ProblemDifficulty.end(); it++) {
-		sprintf(tmp, "  | %8s | %12s |\n", it->first.c_str(), DiffName[it->second]);
+		sprintf(tmp, "  | %8s | %14s |\n", it->first.c_str(), DiffName[it->second]);
 		fout << tmp;
 	}
-	fout << "  └──────────┴──────────────┘\n";
+	fout << "  └──────────┴────────────────┘\n";
 	
 	fout.close();
 	system("notepad result.txt");
