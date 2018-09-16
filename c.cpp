@@ -1,7 +1,6 @@
 /*
 
-	作者: memset0
-	网站: https:// memset0.cn 
+	二次修改: memset0 (https://memset0.cn)
 	
 	这个代码在网上流传的某个统计代码的基础上修改而来，
 	主要是想资瓷更多功能，以及确保稳定性等等。
@@ -29,6 +28,7 @@ int UserID = 122405; // 可以不填或设 0
 #endif
 using std::cout;
 using std::endl;
+using std::string;
 
 typedef int (__stdcall *UDF) (LPVOID,LPCSTR,LPCSTR,DWORD,LPVOID);
 
@@ -64,19 +64,19 @@ int count[9], sum;
 int GetProblemDifficulty(char *file) { // 获得当前题目的难度 
 	file = strfind(file, "\xE9\x9A\xBE\xE5\xBA\xA6");
 	if (file == NULL) return 8;
-    file = strfind(file, "lg-bg-");
-    if (file[0] == 'r') return 0;
+	file = strfind(file, "lg-bg-");
+	if (file[0] == 'r') return 0;
 	if (file[0] == 'o') return 1;
-    if (file[0] == 'y') return 2;
-    if (file[0] == 'g' && file[2] == 'e') return 3;
-    if (file[0] == 'b' && file[4] == 'l') return 4; 
-    if (file[0] == 'p') return 5;
-    if (file[0] == 'b' && file[4] == 'd') return 6;
-    if (file[0] == 'g' && file[2] == 'a') return 7;
-    return 8;
+	if (file[0] == 'y') return 2;
+	if (file[0] == 'g' && file[2] == 'e') return 3;
+	if (file[0] == 'b' && file[4] == 'l') return 4; 
+	if (file[0] == 'p') return 5;
+	if (file[0] == 'b' && file[4] == 'd') return 6;
+	if (file[0] == 'g' && file[2] == 'a') return 7;
+	return 8;
 }
 
-char DifficultyName[9][32] = {
+char DiffName[9][32] = {
 	"入门难度",
 	"普及-",
 	"普及/提高-",
@@ -89,14 +89,15 @@ char DifficultyName[9][32] = {
 };
 char DifficultySpace[9][32] = { "     ", "        ", "   ", "   ", "  ", "    ", "", "     ", "     " };
 
-std::map < std::string, int > ProblemDifficulty;
+std::map < string, int > ProblemDifficulty;
+std::map < int, std::vector < string > > ProblemCounter;
 
 void Output(char *prob, int diff) { // 输出 
     COORD pos = {0,2};
 	SetConsoleCursorPosition(hOutput, pos); 
-    printf("%s 的统计: %s > %s           \n", name, prob, DifficultyName[diff]);
+    printf("%s 的统计: %s > %s           \n", name, prob, DiffName[diff]);
 	for (int i = 0; i < 9; i++)
-		printf("    %s:%s%6d\n", DifficultyName[i], DifficultySpace[i], count[i]);
+		printf("    %s:%s%6d\n", DiffName[i], DifficultySpace[i], count[i]);
 }
 
 void problem(char *&str) {
@@ -121,6 +122,7 @@ void problem(char *&str) {
     
 	int diff = GetProblemDifficulty(file);
 	ProblemDifficulty[prob] = diff;
+	ProblemCounter[diff].push_back(prob);
 	count[diff]++, sum++;
 	Output(prob, diff);
 	
@@ -129,7 +131,7 @@ void problem(char *&str) {
 
 void SaveResult() {
 	std::ofstream fout;
-	char tmp[1000];
+	char tmp[10000];
 	fout.open("result.txt", std::ios::out);
 	
 	fout << "============================\n"
@@ -140,15 +142,26 @@ void SaveResult() {
 			"  用户名: " << name << "\n\n"
 			"# 通过题目难度分布\n\n";
 	for (int i = 0; i < 9; i++) {
-		sprintf(tmp, "  %s:%s%4d\n", DifficultyName[i], DifficultySpace[i], count[i]);
+		sprintf(tmp, "  %s:%s%6d\n", DiffName[i], DifficultySpace[i], count[i]);
 		fout << tmp;
 	}
-	fout << "\n# 题目难度清单\n\n"
-			"  ┌──────────┬──────────────┐\n"
+	
+	fout << "\n# 题目难度清单\n";
+	for (std::map < int, std::vector < string > > ::iterator it = ProblemCounter.begin(); it != ProblemCounter.end(); it++) {
+		sprintf(tmp, "%s", DiffName[it->first]);
+		for (std::vector < string > ::iterator u = it->second.begin(); u != it->second.end(); u++)
+			sprintf(tmp, "%s%c %s", tmp, u == it->second.begin() ? ':' : ',', u->c_str());
+		for (int i = 0; true; i++) {
+			if (!(i % 40) || tmp[i] == '\0') fout << "\n  ";
+			if (tmp[i] == '\0') break;
+			fout << tmp[i];
+		}
+	}
+	fout << "\n  ┌──────────┬──────────────┐\n"
 			"  | 题目编号 |   题目编号   |\n"
 			"  ├──────────┼──────────────┤\n";
-	for (std::map < std::string, int > ::iterator it = ProblemDifficulty.begin(); it != ProblemDifficulty.end(); it++) {
-		sprintf(tmp, "  | %8s | %12s |\n", it->first.c_str(), DifficultyName[it->second]);
+	for (std::map < string, int > ::iterator it = ProblemDifficulty.begin(); it != ProblemDifficulty.end(); it++) {
+		sprintf(tmp, "  | %8s | %12s |\n", it->first.c_str(), DiffName[it->second]);
 		fout << tmp;
 	}
 	fout << "  └──────────┴──────────────┘\n";
@@ -190,8 +203,7 @@ int main() {
         printf("\n%s 的统计: ", name);
         ptr = strfind(file, "通过题目</h2>\n[<");
         if (ptr) {
-            while (*ptr != '<')
-                problem(ptr);
+            while (*ptr != '<') problem(ptr);
             printf("总共通过的题目数: %d\n", sum);
         } else {
 			printf("未找到通过的题目\n");
