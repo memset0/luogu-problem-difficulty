@@ -5,6 +5,7 @@ new_theme/*
 result.txt
 *.exe
 *.tmp
+old/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
