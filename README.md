@@ -1,8 +1,16 @@
-# 洛谷在原页面中添加了混淆信息使得原脚本无法正常工作，鉴于洛谷对爬虫的态度新脚本也不会公开。您可以通过 QQ 与我交流爬虫技术或让我帮您统计 AC 题目难度（门槛： AC 蓝紫黑 200 题以上或 BZOJ 通过 100 题以上）。
+## 洛谷在原页面中添加了 *混淆信息* 使得原脚本无法使用，新脚本也 *不会* 公开。
+## 使用爬虫爬取 *他人* 的通过题目是 *不道德* 的行为（我对我之前的行为表示道歉），也请注意
+## 您可以通过 QQ 与我交流爬虫技术或让我帮您统计 AC 题目难度（门槛：洛谷 AC 蓝紫黑 200 题以上或 BZOJ 通过 100 题以上）。
 
-附 kkk 原话
+附 kkk 原话：
 
-![](https://memset0.github.io/luogu-problem-difficulty/image.png)
+![](https://memset0.github.io/luogu-problem-difficulty/t1.png)
+
+以及来自洛谷开发组的友好问候：
+
+![](https://memset0.github.io/luogu-problem-difficulty/t2.png)
+
+另外，**我爱洛谷**。
 
 # 洛谷通过题目难度统计
 
